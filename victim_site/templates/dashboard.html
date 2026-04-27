@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero-card p-4 p-md-5 rounded-4 shadow-sm mb-4">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <span class="badge text-bg-dark mb-3">Admin Dashboard</span>
+            <h1 class="display-6 fw-bold mb-3">Trang quan tri he thong</h1>
+            <p class="lead mb-0">
+                Quan ly nguoi dung va phan hoi khach hang trong giao dien doanh nghiep.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h5>Tong nguoi dung</h5>
+                <div class="display-6 fw-bold">{{ total_users }}</div>
+                <a href="{{ url_for('admin_users') }}" class="btn btn-outline-dark mt-2">Quan ly nguoi dung</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h5>Tong comment</h5>
+                <div class="display-6 fw-bold">{{ total_comments }}</div>
+                <a href="{{ url_for('admin_comments') }}" class="btn btn-primary mt-2">Quan ly comment</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

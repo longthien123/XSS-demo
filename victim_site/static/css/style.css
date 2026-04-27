@@ -1,0 +1,39 @@
+:root {
+    --bg-soft: #f5f7fb;
+    --brand: #0d6efd;
+    --brand-dark: #0a4db3;
+    --ink: #1f2a37;
+}
+
+body {
+    background: linear-gradient(180deg, #f8fbff 0%, var(--bg-soft) 100%);
+    color: var(--ink);
+    min-height: 100vh;
+}
+
+.hero-card {
+    background: radial-gradient(circle at top right, #dbeafe 0%, #eff6ff 35%, #ffffff 100%);
+    border: 1px solid #dde7ff;
+}
+
+.navbar-brand {
+    letter-spacing: 0.3px;
+}
+
+.card {
+    border-radius: 14px;
+}
+
+.comment-list {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.comment-item {
+    background: #ffffff;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+}

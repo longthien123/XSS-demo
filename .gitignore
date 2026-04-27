@@ -1,0 +1,11 @@
+.vscode/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.env
+victim_site/.env
+victim_site/__pycache__/
+hacker_site/__pycache__/

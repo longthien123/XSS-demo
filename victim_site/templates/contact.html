@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h4 class="mb-3">Lien he khach hang</h4>
+                <p class="text-muted mb-4">Gui thong tin, yeu cau ho tro hoac phan hoi ve dich vu cua chung toi.</p>
+                <form method="post" class="vstack gap-3">
+                    <div>
+                        <label class="form-label">Ho va ten / Don vi</label>
+                        <input type="text" class="form-control" value="{{ g.user.username }}" disabled>
+                    </div>
+                    <div>
+                        <label class="form-label">Noi dung lien he</label>
+                        <textarea name="comment" class="form-control" rows="6" placeholder="Nhap noi dung lien he..." required></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Gui lien he</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0">Phan hoi gan day</h4>
+                    <span class="badge text-bg-secondary">{{ comments|length }} phan hoi</span>
+                </div>
+                {% if comments %}
+                    <div class="comment-list">
+                        {% for c in comments %}
+                            <div class="comment-item border rounded-3 p-3 mb-2">
+                                <div class="d-flex justify-content-between small text-muted mb-2">
+                                    <span>{{ c['username'] }}</span>
+                                    <span>{{ c['created_at'] }}</span>
+                                </div>
+                                <div>
+                                    {% if secure_mode %}
+                                        {{ c['content']|e }}
+                                    {% else %}
+                                        {{ c['content']|safe }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted mb-0">Chua co phan hoi nao.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

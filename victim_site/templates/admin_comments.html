@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h3 class="mb-0">Quan ly comment</h3>
+        <small class="text-muted">Danh sach phan hoi tu nguoi dung.</small>
+    </div>
+    <span class="badge text-bg-secondary">{{ comments|length }} comment</span>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body">
+        {% if comments %}
+            <div class="table-responsive">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px">ID</th>
+                            <th style="width: 140px">Nguoi gui</th>
+                            <th>Noi dung</th>
+                            <th style="width: 180px">Thoi gian</th>
+                            <th style="width: 100px">Xoa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in comments %}
+                            <tr>
+                                <td>{{ c['id'] }}</td>
+                                <td>{{ c['username'] }}</td>
+                                <td>
+                                    {% if secure_mode %}
+                                        {{ c['content']|e }}
+                                    {% else %}
+                                        {{ c['content']|safe }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ c['created_at'] }}</td>
+                                <td>
+                                    <form method="post" action="{{ url_for('delete_comment', comment_id=c['id']) }}" onsubmit="return confirm('Xoa comment nay?');">
+                                        <button class="btn btn-sm btn-outline-danger" type="submit">Xoa</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-muted mb-0">Chua co comment nao trong he thong.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

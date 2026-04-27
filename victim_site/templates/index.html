@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero-card p-4 p-md-5 rounded-4 shadow-sm mb-4">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <span class="badge text-bg-primary mb-3">Doanh nghiep / Ho tro khach hang</span>
+            <h1 class="display-6 fw-bold mb-3">Giai phap dich vu, san pham va lien he khach hang</h1>
+            <p class="lead mb-4">
+                Day la giao dien mo phong phong cach website doanh nghiep. Nguoi dung co the xem san pham,
+                gui lien he, va trao doi thong tin qua form comment.
+            </p>
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg">Xem san pham</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">Lien he ngay</a>
+                {% if not g.user.id %}
+                    <a href="{{ url_for('login') }}" class="btn btn-dark btn-lg">Dang nhap</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title">Thong tin nhanh</h5>
+                    <div class="d-flex justify-content-between border-bottom py-2"><span>Ho tro</span><strong>24/7</strong></div>
+                    <div class="d-flex justify-content-between border-bottom py-2"><span>Phan hoi</span><strong>Trong 24 gio</strong></div>
+                    <div class="d-flex justify-content-between py-2"><span>Khu vuc</span><strong>Toan quoc</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm service-card">
+            <div class="card-body">
+                <h5>Dich vu tu van</h5>
+                <p class="mb-0 text-muted">Tu van trien khai, van hanh, va ho tro sau ban hang.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm service-card">
+            <div class="card-body">
+                <h5>San pham noi bat</h5>
+                <p class="mb-0 text-muted">Bo giai phap theo phan he, de mo rong va de bao tri.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm service-card">
+            <div class="card-body">
+                <h5>Cham soc khach hang</h5>
+                <p class="mb-0 text-muted">Nhan yeu cau tu form lien he va phan hoi tap trung.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="row g-4">
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="mb-0">Thong diep moi nhat tu khach hang</h4>
+                    <a href="{{ url_for('contact') }}" class="btn btn-sm btn-outline-primary">Xem lien he</a>
+                </div>
+                {% if recent_comments %}
+                    <div class="comment-list">
+                        {% for c in recent_comments %}
+                            <div class="comment-item border rounded-3 p-3 mb-2">
+                                <div class="d-flex justify-content-between small text-muted mb-2">
+                                    <span>{{ c['username'] }}</span>
+                                    <span>{{ c['created_at'] }}</span>
+                                </div>
+                                <div>
+                                    {% if secure_mode %}
+                                        {{ c['content']|e }}
+                                    {% else %}
+                                        {{ c['content']|safe }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted mb-0">Chua co phan hoi nao tu khach hang.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h4 class="mb-3">Tai khoan / Lien he nhanh</h4>
+                <p class="mb-2"><strong>Admin:</strong> admin / admin123</p>
+                <p class="mb-3 text-muted">Nguoi dung co the dang nhap, vao trang lien he va gui comment.</p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('products') }}" class="btn btn-outline-secondary">San pham</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary">Trang lien he</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h4 class="mb-3">Gui binh luan</h4>
+                <form method="post" class="vstack gap-3">
+                    <div>
+                        <label class="form-label">Noi dung comment</label>
+                        <textarea name="comment" class="form-control" rows="6" placeholder="Nhap comment..." required></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Gui comment</button>
+                </form>
+
+                {% if not secure_mode %}
+                <div class="alert alert-warning mt-3 small mb-0">
+                    Dang o VULNERABLE mode: comment co the chua script doc hai.
+                </div>
+                {% else %}
+                <div class="alert alert-success mt-3 small mb-0">
+                    Dang o SECURE mode: bo loc input dang hoat dong.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <h4 class="mb-3">Danh sach comment gan day</h4>
+                {% if comments %}
+                    <div class="comment-list">
+                        {% for c in comments %}
+                        <div class="comment-item border rounded-3 p-3 mb-2">
+                            <div class="d-flex justify-content-between small text-muted mb-2">
+                                <span>{{ c['username'] }}</span>
+                                <span>{{ c['created_at'] }}</span>
+                            </div>
+                            <div>
+                                {% if secure_mode %}
+                                    {{ c['content']|e }}
+                                {% else %}
+                                    {{ c['content']|safe }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted mb-0">Chua co comment nao.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
