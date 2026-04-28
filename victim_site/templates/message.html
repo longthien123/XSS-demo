@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h3 class="card-title mb-3">Message to Admin</h3>
+        <p class="text-muted">Tin nhan nay chi luu tam thoi trong RAM, khong ghi database.</p>
+
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Tieu de</label>
+            <input name="subject" class="form-control" placeholder="Vi du: Can ho tro">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Noi dung</label>
+            <textarea name="body" rows="4" class="form-control" placeholder="Nhap noi dung hoac mot link bat ky"></textarea>
+          </div>
+          <button class="btn btn-primary">Gui cho admin</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Tin nhan gan day</h5>
+        {% if messages %}
+          <div class="list-group list-group-flush">
+            {% for message in messages %}
+              <div class="list-group-item">
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                  <strong>#{{ message.id }} - {{ message.subject }}</strong>
+                  <small class="text-muted">{{ message.created_at }}</small>
+                </div>
+                <div class="small text-muted">Tu: {{ message.sender }}</div>
+                <div class="mt-2">{{ message.body|linkify }}</div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="text-muted mb-0">Chua co tin nhan nao.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 from datetime import datetime
 from flask import (
@@ -11,6 +12,7 @@ from flask import (
     session,
     url_for,
 )
+from markupsafe import Markup, escape
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from config import COOKIES_LOG_PATH, SECRET_KEY, USE_MYSQL, get_secure_mode
@@ -19,6 +21,10 @@ from security import admin_required, login_required, validate_comment_input
 
 # Chay secure mode bang: python app.py --secure
 SECURE_MODE = get_secure_mode(sys.argv)
+
+# Temporary in-memory inbox for admin message demo.
+TEMP_MESSAGES = []
+URL_PATTERN = re.compile(r"(?i)\b((?:https?://|www\.)[^\s<>'\"]+)")
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = SECRET_KEY
@@ -53,11 +59,46 @@ def inject_globals():
     return {"secure_mode": SECURE_MODE, "app_mode": "SECURE" if SECURE_MODE else "VULNERABLE"}
 
 
+@app.template_filter("linkify")
+def linkify(value):
+    """Render plain text URLs as clickable anchors while escaping everything else."""
+    if value is None:
+        return ""
+
+    text = str(value)
+    parts = []
+    last_end = 0
+
+    for match in URL_PATTERN.finditer(text):
+        start, end = match.span(1)
+        if start > last_end:
+            parts.append(escape(text[last_end:start]))
+
+        raw_url = match.group(1)
+        href = raw_url if raw_url.lower().startswith(("http://", "https://")) else f"http://{raw_url}"
+        parts.append(
+            Markup(
+                '<a href="{}" target="_blank" rel="noopener noreferrer">{}</a>'.format(
+                    escape(href),
+                    escape(raw_url),
+                )
+            )
+        )
+        last_end = end
+
+    if last_end < len(text):
+        parts.append(escape(text[last_end:]))
+
+    return Markup("".join(str(part) for part in parts))
+
+
 # -------------------------
 # Routes
 # -------------------------
 @app.route("/")
 def index():
+    search_query = request.args.get("search", "").strip()
+
     conn = get_db_connection()
     cur = conn.cursor()
     db_execute(
@@ -73,7 +114,7 @@ def index():
     recent_comments = cur.fetchall()
     conn.close()
 
-    return render_template("index.html", recent_comments=recent_comments)
+    return render_template("index.html", recent_comments=recent_comments, search_query=search_query)
 
 
 @app.route("/products")
@@ -122,6 +163,52 @@ def contact():
     conn.close()
 
     return render_template("contact.html", comments=comments)
+
+
+@app.route("/message", methods=["GET", "POST"])
+@login_required
+def message():
+    """Temporary message inbox demo stored only in memory."""
+    if request.method == "POST":
+        subject = request.form.get("subject", "").strip()
+        body = request.form.get("body", "").strip()
+
+        if not subject or not body:
+            flash("Vui long nhap day du tieu de va noi dung.", "danger")
+            return render_template("message.html", messages=list(reversed(TEMP_MESSAGES)))
+
+        TEMP_MESSAGES.append(
+            {
+                "id": len(TEMP_MESSAGES) + 1,
+                "sender": g.user["username"],
+                "subject": subject,
+                "body": body,
+                "created_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            }
+        )
+        flash("Da gui tin nhan tam thoi toi admin.", "success")
+        return redirect(url_for("message"))
+
+    return render_template("message.html", messages=list(reversed(TEMP_MESSAGES)))
+
+
+@app.route("/profile")
+@login_required
+def profile():
+    """Simple user profile page driven by query string id."""
+    profile_id = request.args.get("id", str(g.user["id"]))
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+    db_execute(cur, "SELECT id, username, role FROM users WHERE id = ?", (profile_id,))
+    profile_user = cur.fetchone()
+    conn.close()
+
+    if not profile_user:
+        flash("Khong tim thay nguoi dung.", "danger")
+        return redirect(url_for("index"))
+
+    return render_template("profile.html", profile_user=profile_user, profile_id=profile_id)
 
 
 @app.route("/user")
@@ -191,6 +278,13 @@ def admin_comments():
     conn.close()
 
     return render_template("admin_comments.html", comments=comments)
+
+
+@app.route("/admin/messages")
+@admin_required
+def admin_messages():
+    """Admin view for temporary in-memory messages."""
+    return render_template("admin_messages.html", messages=list(reversed(TEMP_MESSAGES)))
 
 
 @app.route("/register", methods=["GET", "POST"])

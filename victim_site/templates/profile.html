@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title mb-3">Thong tin nguoi dung</h3>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="border rounded p-3 bg-light">
+              <div class="text-muted small">ID</div>
+              <div class="fw-semibold">{{ profile_user.id }}</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="border rounded p-3 bg-light">
+              <div class="text-muted small">Username</div>
+              <div class="fw-semibold">{{ profile_user.username }}</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="border rounded p-3 bg-light">
+              <div class="text-muted small">Role</div>
+              <div class="fw-semibold">{{ profile_user.role }}</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="border rounded p-3 bg-light">
+              <div class="text-muted small">Duong dan</div>
+              <div class="fw-semibold">/profile?id={{ profile_id }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-info mt-4">
+          Trang nay chi hien thi thong tin co ban cua nguoi dung dang nhap.
+        </div>
+
+        <!-- Token gia lap -->
+        <div id="demoToken" class="d-none">
+          ADMIN-TOKEN-2026-SECRET
+        </div>
+
+        <!-- Noi hien thi payload -->
+        <div class="card mt-3 border-warning">
+          <div class="card-body">
+            <h5 class="mb-2">Quick Welcome Widget</h5>
+            <div id="welcomeBox" class="text-muted">
+              Dang tai noi dung...
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const payload = decodeURIComponent(location.hash.substring(1));
+
+if(payload){
+    // Vulnerable mode
+    document.getElementById("welcomeBox").innerHTML = payload;
+}else{
+    document.getElementById("welcomeBox").innerText = "Xin chao {{ profile_user.username }}";
+}
+</script>
+
+{% endblock %}

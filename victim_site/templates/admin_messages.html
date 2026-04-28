@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-10 mx-auto">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h3 class="mb-1">Admin Messages</h3>
+        <p class="text-muted mb-0">Xem tin nhan tam thoi tu user. Du lieu hien thi an toan va khong luu DB.</p>
+      </div>
+    </div>
+
+    {% if messages %}
+      <div class="row g-3">
+        {% for message in messages %}
+          <div class="col-12">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                  <h5 class="card-title mb-0">{{ message.subject }}</h5>
+                  <span class="badge text-bg-secondary">#{{ message.id }}</span>
+                </div>
+                <div class="small text-muted mt-1">Tu: {{ message.sender }} | {{ message.created_at }}</div>
+                <hr>
+                <p class="mb-0">{{ message.body|linkify }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info">Chua co tin nhan nao.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

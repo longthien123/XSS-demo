@@ -16,6 +16,32 @@
                     <a href="{{ url_for('login') }}" class="btn btn-dark btn-lg">Dang nhap</a>
                 {% endif %}
             </div>
+
+            <form method="get" action="{{ url_for('index') }}" class="mt-4">
+                <div class="input-group input-group-lg">
+                    <span class="input-group-text">Search</span>
+                    <input type="text" name="search" class="form-control" placeholder="Nhap noi dung tim kiem" value="{{ search_query }}">
+                    <button class="btn btn-primary" type="submit">Tim</button>
+                </div>
+            </form>
+
+            {#
+            {% if search_query %}
+                <div class="alert alert-light border mt-3 mb-0">
+                    <strong>Ket qua search:</strong> {{ search_query | safe }}
+                </div>
+            {% endif %}
+            #}
+            {% if search_query %}
+                <div class="alert alert-warning border mt-3 mb-0">
+                    <strong>Ket qua search:</strong>
+                    {% if secure_mode %}
+                        {{ search_query|e }}
+                    {% else %}
+                        {{ search_query|safe }}
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
         <div class="col-lg-5">
             <div class="card shadow-sm border-0">

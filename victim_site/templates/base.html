@@ -18,11 +18,13 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Trang chu</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url_for('products') }}">San pham</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('message') }}">Message</a></li>
                 {% if g.user.id %}
                     {% if g.user.role == 'admin' %}
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_users') }}">Quan ly nguoi dung</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_comments') }}">Quan ly comment</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('admin_messages') }}">Tin nhan</a></li>
                     {% else %}
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}">Lien he</a></li>
                     {% endif %}
@@ -35,6 +37,7 @@
                 </span>
                 {% if g.user.id %}
                     <span class="text-light small">Xin chao, {{ g.user.username }} ({{ g.user.role }})</span>
+                    <a class="btn btn-outline-info btn-sm" href="{{ url_for('profile', id=g.user.id) }}">Profile</a>
                     <a class="btn btn-outline-light btn-sm" href="{{ url_for('logout') }}">Dang xuat</a>
                 {% else %}
                     <a class="btn btn-outline-light btn-sm" href="{{ url_for('login') }}">Dang nhap</a>
