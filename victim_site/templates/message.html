@@ -3,43 +3,43 @@
 {% block content %}
 <div class="row justify-content-center">
   <div class="col-lg-8">
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4 border-0">
       <div class="card-body">
-        <h3 class="card-title mb-3">Message to Admin</h3>
-        <p class="text-muted">Tin nhan nay chi luu tam thoi trong RAM, khong ghi database.</p>
+        <h3 class="card-title mb-2"><i class="bi bi-chat-dots"></i> Nhắn tin với quản lý CampHub</h3>
+        <p class="text-muted small">Gửi thắc mắc hoặc yêu cầu đặc biệt trực tiếp tới quản lý của chúng tôi.</p>
 
-        <form method="post">
+        <form method="post" class="mt-4">
           <div class="mb-3">
-            <label class="form-label">Tieu de</label>
-            <input name="subject" class="form-control" placeholder="Vi du: Can ho tro">
+            <label class="form-label"><strong>Tiêu đề tin nhắn</strong></label>
+            <input name="subject" class="form-control" placeholder="Ví dụ: Tư vấn về lều 4 người" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Noi dung</label>
-            <textarea name="body" rows="4" class="form-control" placeholder="Nhap noi dung hoac mot link bat ky"></textarea>
+            <label class="form-label"><strong>Nội dung</strong></label>
+            <textarea name="body" rows="4" class="form-control" placeholder="Nhập nội dung tin nhắn hoặc liên kết tư vấn..." required></textarea>
           </div>
-          <button class="btn btn-primary">Gui cho admin</button>
+          <button class="btn btn-success btn-lg"><i class="bi bi-send"></i> Gửi cho quản lý</button>
         </form>
       </div>
     </div>
 
-    <div class="card">
+    <div class="card border-0">
       <div class="card-body">
-        <h5 class="card-title">Tin nhan gan day</h5>
+        <h5 class="card-title mb-3"><i class="bi bi-inbox"></i> Tin nhắn gần đây</h5>
         {% if messages %}
           <div class="list-group list-group-flush">
             {% for message in messages %}
-              <div class="list-group-item">
-                <div class="d-flex justify-content-between flex-wrap gap-2">
-                  <strong>#{{ message.id }} - {{ message.subject }}</strong>
+              <div class="list-group-item border rounded-3 mb-2 p-3" style="background: #f8f9fa;">
+                <div class="d-flex justify-content-between flex-wrap gap-2 mb-2">
+                  <strong style="color: #4a7c2c;">📧 {{ message.subject }}</strong>
                   <small class="text-muted">{{ message.created_at }}</small>
                 </div>
-                <div class="small text-muted">Tu: {{ message.sender }}</div>
-                <div class="mt-2">{{ message.body|linkify }}</div>
+                <div class="small text-muted mb-2">✍️ Từ: <strong>{{ message.sender }}</strong></div>
+                <div class="mt-2 text-muted">{{ message.body|linkify }}</div>
               </div>
             {% endfor %}
           </div>
         {% else %}
-          <p class="text-muted mb-0">Chua co tin nhan nao.</p>
+          <p class="text-muted mb-0">Chưa có tin nhắn nào. Bắt đầu cuộc trò chuyện của bạn!</p>
         {% endif %}
       </div>
     </div>

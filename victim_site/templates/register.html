@@ -3,19 +3,28 @@
 <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5">
         <div class="card shadow-sm border-0">
+            <div style="background: linear-gradient(135deg, #4a7c2c 0%, #2d5016 100%); height: 60px; display: flex; align-items: center; justify-content: center; font-size: 30px; border-radius: 14px 14px 0 0;">
+                🏕️
+            </div>
             <div class="card-body p-4">
-                <h3 class="mb-3">Dang ky tai khoan</h3>
+                <h3 class="mb-2" style="color: #2d5016;"><i class="bi bi-person-plus"></i> Tạo tài khoản mới</h3>
+                <p class="text-muted small mb-4">Tham gia CampHub để khám phá những kỳ nghỉ tuyệt vời</p>
                 <form method="post" class="vstack gap-3">
                     <div>
-                        <label class="form-label">Username</label>
-                        <input type="text" name="username" class="form-control" placeholder="Nhap username" required>
+                        <label class="form-label"><strong>Tên đăng nhập</strong></label>
+                        <input type="text" name="username" class="form-control" placeholder="Chọn tên đăng nhập" required>
                     </div>
                     <div>
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Nhap password" required>
+                        <label class="form-label"><strong>Mật khẩu</strong></label>
+                        <input type="password" name="password" class="form-control" placeholder="Tạo mật khẩu mạnh" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Tao tai khoan</button>
+                    <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-person-plus"></i> Đăng ký</button>
                 </form>
+
+                <hr>
+                <p class="small text-muted mb-0">
+                    Đã có tài khoản? <a href="{{ url_for('login') }}">Đăng nhập tại đây</a>
+                </p>
             </div>
         </div>
     </div>

@@ -181,6 +181,20 @@ http://127.0.0.1:5000/?search=%3Cscript%3E+new+Image%28%29.src%3D%27http%3A%2F%2
 10. Hacker sử dụng cookies đó để đăng nhập phiên admin mà không cần tài khoản mật khẩu
 11. Từ đấy hacker có thể truy cập vào trang admin và đánh cắp cũng như kiểm soát được trang demo đó
 
+
+Long Thiên
+1. Mở trang hacker site trên localhost:5001.
+2. Mở trang demo (localhost:5000)
+3. Đăng ký và đăng nhập tren victim site(5000) ( đoạn này là hacker đăng ký giả mạo tài khoản người dùng)
+4. Ở trang demo khác(ẩn danh), đăng nhập với tài khoản admin (admin, admin123), show trang trang tin nhắn xem tin nhắn của user(ban đầu chưa có tin nhắn gì)
+5. Quay lại trang demo với role user, nhấn vào phần message
+6. Chen payload(link) DOM-based XSS vao ô tin nhắn và gửi (link này là 1 url tìm kiếm của trang demo với localhost:5000/profile)
+7. Ở trang demo role admin, nhấn vào xem tin nhắn(sẽ thấy user gửi link)
+8. Admin nhấn vào link, lúc này link sẽ mở ra url có dạng localhost:5000/profile#... và ở sau phần # là một thẻ <img> nhưng bị lỗi nên nó sẽ thực thi đoạn sau oneror đó chính là script sẽ được thực thi lệnh lấy cookie và gửi về phía server hacker
+9. Vào file hacker_cookies.txt kiểm tra(dòng có thời gian lúc bấm vào link cookie admin)
+10. Hacker sử dụng cookies đó để đăng nhập phiên admin mà không cần tài khoản mật khẩu
+11. Từ đấy hacker có thể truy cập vào trang admin và đánh cắp cũng như kiểm soát được trang demo đó
+
 ## 8) Route chinh
 
 Victim site:

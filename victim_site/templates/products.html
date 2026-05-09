@@ -1,42 +1,184 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="hero-card p-4 p-md-5 rounded-4 shadow-sm mb-4">
+<section class="hero-card p-4 p-md-5 rounded-4 shadow-sm mb-4" style="background: linear-gradient(135deg, #4a7c2c 0%, #2d5016 100%); color: white;">
     <div class="row align-items-center">
         <div class="col-lg-8">
-            <span class="badge text-bg-secondary mb-3">San pham / Dich vu</span>
-            <h1 class="display-6 fw-bold mb-3">Bo san pham ho tro doanh nghiep</h1>
+            <span class="badge text-bg-light mb-3"><i class="bi bi-tent"></i> Danh sách lều trại</span>
+            <h1 class="display-6 fw-bold mb-3">Bộ sưu tập lều trại chất lượng cao</h1>
             <p class="lead mb-0">
-                Trang nay mo phong khu vuc gioi thieu san pham, dich vu va cac goi ho tro khach hang.
+                CampHub cung cấp các loại lều trại phù hợp với mọi nhu cầu. 
+                Từ lều cá nhân cho một người, lều gia đình, đến lều nhóm lớn. Mỗi lều đều được kiểm tra chất lượng kỹ lưỡng.
             </p>
         </div>
     </div>
 </section>
 
-<section class="row g-3">
-    <div class="col-md-4">
-        <div class="card h-100 border-0 shadow-sm">
+<section class="row g-4 mb-5">
+    <!-- Lều 1 Người -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm product-card" style="cursor: not-allowed; opacity: 0.95;">
+            <div style="background: linear-gradient(135deg, #e8f4f0 0%, #d4ebe5 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                <div style="font-size: 80px;">⛺</div>
+            </div>
             <div class="card-body">
-                <h5>Goi Co Ban</h5>
-                <p class="text-muted">Phu hop cho nhom nho, khai trien nhanh, van hanh de dang.</p>
-                <div class="fw-bold">Tu 1.500.000 VND</div>
+                <h5 class="card-title"><i class="bi bi-person"></i> Lều cá nhân Solo</h5>
+                <p class="text-muted small mb-3">Lều một người, nhẹ, dễ mang theo, phù hợp cho các chuyến đi một mình.</p>
+                <div class="mb-3">
+                    <span class="badge text-bg-info">Dành cho 1 người</span>
+                    <span class="badge text-bg-secondary">Trọng lượng: 1.5kg</span>
+                </div>
+                <p class="fw-bold text-primary mb-2">199.000 VND / đêm</p>
+                <p class="small text-muted mb-0">✓ Chống nước tốt<br>✓ Thông thoáng<br>✓ Dễ dựng</p>
+            </div>
+            <div class="card-footer bg-light">
+                <button class="btn btn-secondary btn-sm w-100" disabled>Không thể đặt (Demo)</button>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card h-100 border-0 shadow-sm">
+
+    <!-- Lều 2 Người -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm product-card" style="cursor: not-allowed; opacity: 0.95;">
+            <div style="background: linear-gradient(135deg, #f0e8f4 0%, #e5d4eb 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                <div style="font-size: 80px;">⛺⛺</div>
+            </div>
             <div class="card-body">
-                <h5>Goi Nang Cao</h5>
-                <p class="text-muted">Them phan tich, bao cao va ho tro theo quy trinh doanh nghiep.</p>
-                <div class="fw-bold">Tu 3.500.000 VND</div>
+                <h5 class="card-title"><i class="bi bi-people"></i> Lều 2 Người Deluxe</h5>
+                <p class="text-muted small mb-3">Lều gia đình nhỏ, có lối vào rộng, không gian thoải mái cho cặp đôi.</p>
+                <div class="mb-3">
+                    <span class="badge text-bg-info">Dành cho 2 người</span>
+                    <span class="badge text-bg-secondary">Trọng lượng: 2.5kg</span>
+                </div>
+                <p class="fw-bold text-primary mb-2">349.000 VND / đêm</p>
+                <p class="small text-muted mb-0">✓ Hai phòng riêng<br>✓ Có bạt che nước<br>✓ Thoáng mát</p>
+            </div>
+            <div class="card-footer bg-light">
+                <button class="btn btn-secondary btn-sm w-100" disabled>Không thể đặt (Demo)</button>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card h-100 border-0 shadow-sm">
+
+    <!-- Lều Gia Đình -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm product-card" style="cursor: not-allowed; opacity: 0.95; border: 2px solid #ff9800;">
+            <div class="position-absolute top-0 end-0 p-2">
+                <span class="badge text-bg-warning">⭐ Phổ biến nhất</span>
+            </div>
+            <div style="background: linear-gradient(135deg, #f4f0e8 0%, #ebe5d4 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                <div style="font-size: 80px;">🏕️</div>
+            </div>
             <div class="card-body">
-                <h5>Goi Doanh Nghiep</h5>
-                <p class="text-muted">Tich hop sau, ho tro rieng va uy quyen quan tri day du.</p>
-                <div class="fw-bold">Lien he bao gia</div>
+                <h5 class="card-title"><i class="bi bi-house-heart"></i> Lều Gia Đình 4 Người</h5>
+                <p class="text-muted small mb-3">Lều spacious cho gia đình, có phòng ngủ riêng, lối đi thoáng.</p>
+                <div class="mb-3">
+                    <span class="badge text-bg-info">Dành cho 4 người</span>
+                    <span class="badge text-bg-secondary">Trọng lượng: 4.5kg</span>
+                </div>
+                <p class="fw-bold text-primary mb-2">599.000 VND / đêm</p>
+                <p class="small text-muted mb-0">✓ 3 phòng ngủ<br>✓ Sàn thoáng<br>✓ Cửa chính lớn</p>
+            </div>
+            <div class="card-footer bg-light">
+                <button class="btn btn-secondary btn-sm w-100" disabled>Không thể đặt (Demo)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lều Dome -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm product-card" style="cursor: not-allowed; opacity: 0.95;">
+            <div style="background: linear-gradient(135deg, #e8f4f0 0%, #d4ebe5 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                <div style="font-size: 80px;">🔶</div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-circle"></i> Lều Dome Glamping</h5>
+                <p class="text-muted small mb-3">Lều cao cấp, thiết kế dome độc đáo, thoáng sáng, phù hợp cho nhóm bạn.</p>
+                <div class="mb-3">
+                    <span class="badge text-bg-info">Dành cho 6 người</span>
+                    <span class="badge text-bg-secondary">Trọng lượng: 6kg</span>
+                </div>
+                <p class="fw-bold text-primary mb-2">899.000 VND / đêm</p>
+                <p class="small text-muted mb-0">✓ Thiết kế dome<br>✓ 4 cửa sổ lớn<br>✓ Sàn thông hơi</p>
+            </div>
+            <div class="card-footer bg-light">
+                <button class="btn btn-secondary btn-sm w-100" disabled>Không thể đặt (Demo)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lều Canvas -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm product-card" style="cursor: not-allowed; opacity: 0.95;">
+            <div style="background: linear-gradient(135deg, #f4ede0 0%, #ead9c3 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                <div style="font-size: 80px;">🎪</div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-diagram-3"></i> Lều Canvas Du Mục</h5>
+                <p class="text-muted small mb-3">Lều canvas truyền thống, sang trọng, giữ ấm tốt, lý tưởng cho các chuyến dài.</p>
+                <div class="mb-3">
+                    <span class="badge text-bg-info">Dành cho 8 người</span>
+                    <span class="badge text-bg-secondary">Trọng lượng: 8.5kg</span>
+                </div>
+                <p class="fw-bold text-primary mb-2">1.299.000 VND / đêm</p>
+                <p class="small text-muted mb-0">✓ Canvas chất lượng<br>✓ Giữ ấm tốt<br>✓ Sang trọng</p>
+            </div>
+            <div class="card-footer bg-light">
+                <button class="btn btn-secondary btn-sm w-100" disabled>Không thể đặt (Demo)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lều Túi Ngủ + Lều -->
+    <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm product-card" style="cursor: not-allowed; opacity: 0.95;">
+            <div style="background: linear-gradient(135deg, #e0f0f4 0%, #c3d9ea 100%); height: 200px; display: flex; align-items: center; justify-content: center;">
+                <div style="font-size: 80px;">🛏️</div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-bag"></i> Gói Combo: Lều + Túi ngủ</h5>
+                <p class="text-muted small mb-3">Bộ combo đầy đủ, bao gồm lều, túi ngủ chất lượng và bạt che.</p>
+                <div class="mb-3">
+                    <span class="badge text-bg-success">Combo tiết kiệm</span>
+                    <span class="badge text-bg-secondary">Giảm 15%</span>
+                </div>
+                <p class="fw-bold text-primary mb-2">Từ 299.000 VND / bộ</p>
+                <p class="small text-muted mb-0">✓ Gồm túi ngủ<br>✓ Bạt che nước<br>✓ Túi đựng</p>
+            </div>
+            <div class="card-footer bg-light">
+                <button class="btn btn-secondary btn-sm w-100" disabled>Không thể đặt (Demo)</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <h3 class="mb-4 text-center fw-bold">✨ Tại sao chọn CampHub?</h3>
+    <div class="row g-3">
+        <div class="col-md-3">
+            <div class="text-center">
+                <div style="font-size: 40px; margin-bottom: 10px;">✅</div>
+                <h6>Chất lượng đảm bảo</h6>
+                <p class="small text-muted">Tất cả lều đều được kiểm tra kỹ trước khi cho thuê</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="text-center">
+                <div style="font-size: 40px; margin-bottom: 10px;">💰</div>
+                <h6>Giá cạnh tranh</h6>
+                <p class="small text-muted">Giá rẻ nhất thị trường, có ưu đãi khi thuê nhiều đêm</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="text-center">
+                <div style="font-size: 40px; margin-bottom: 10px;">🚚</div>
+                <h6>Giao hàng nhanh</h6>
+                <p class="small text-muted">Giao tận nơi hoặc nhận tại các điểm CampHub</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="text-center">
+                <div style="font-size: 40px; margin-bottom: 10px;">💬</div>
+                <h6>Hỗ trợ 24/7</h6>
+                <p class="small text-muted">Đội hỗ trợ luôn sẵn sàng giải đáp mọi thắc mắc</p>
             </div>
         </div>
     </div>

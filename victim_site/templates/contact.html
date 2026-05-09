@@ -4,19 +4,29 @@
     <div class="col-lg-5">
         <div class="card border-0 shadow-sm">
             <div class="card-body">
-                <h4 class="mb-3">Lien he khach hang</h4>
-                <p class="text-muted mb-4">Gui thong tin, yeu cau ho tro hoac phan hoi ve dich vu cua chung toi.</p>
+                <h4 class="mb-2"><i class="bi bi-telephone"></i> Liên hệ CampHub</h4>
+                <p class="text-muted mb-4">Gửi yêu cầu tư vấn, hỏi về lều trại, hoặc đặt câu hỏi về dịch vụ của chúng tôi.</p>
                 <form method="post" class="vstack gap-3">
                     <div>
-                        <label class="form-label">Ho va ten / Don vi</label>
+                        <label class="form-label"><strong>Họ và tên của bạn</strong></label>
                         <input type="text" class="form-control" value="{{ g.user.username }}" disabled>
                     </div>
                     <div>
-                        <label class="form-label">Noi dung lien he</label>
-                        <textarea name="comment" class="form-control" rows="6" placeholder="Nhap noi dung lien he..." required></textarea>
+                        <label class="form-label"><strong>Vấn đề hoặc yêu cầu</strong></label>
+                        <textarea name="comment" class="form-control" rows="6" placeholder="Ví dụ: Tôi muốn thuê lều cho 4 người, từ thứ Bảy đến Chủ nhật..." required></textarea>
                     </div>
-                    <button class="btn btn-primary" type="submit">Gui lien he</button>
+                    <button class="btn btn-success btn-lg" type="submit"><i class="bi bi-send"></i> Gửi liên hệ</button>
                 </form>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mt-3" style="background: linear-gradient(135deg, #e8f4f0 0%, #d4ebe5 100%);">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3"><i class="bi bi-info-circle"></i> Thông tin liên lạc</h6>
+                <p class="small mb-2"><strong>📞 Điện thoại:</strong> (84) 1900-1234</p>
+                <p class="small mb-2"><strong>📧 Email:</strong> support@camphub.vn</p>
+                <p class="small mb-2"><strong>⏰ Giờ làm việc:</strong> 7:00 - 22:00</p>
+                <p class="small"><strong>📍 Địa chỉ:</strong> 123 Đường Núi, TP.HCM</p>
             </div>
         </div>
     </div>
@@ -25,18 +35,18 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="mb-0">Phan hoi gan day</h4>
-                    <span class="badge text-bg-secondary">{{ comments|length }} phan hoi</span>
+                    <h4 class="mb-0"><i class="bi bi-chat-left-quote"></i> Yêu cầu gần đây từ khách hàng</h4>
+                    <span class="badge text-bg-primary">{{ comments|length }} yêu cầu</span>
                 </div>
                 {% if comments %}
                     <div class="comment-list">
                         {% for c in comments %}
-                            <div class="comment-item border rounded-3 p-3 mb-2">
-                                <div class="d-flex justify-content-between small text-muted mb-2">
-                                    <span>{{ c['username'] }}</span>
-                                    <span>{{ c['created_at'] }}</span>
+                            <div class="comment-item border rounded-3 p-3 mb-2" style="background: #f8f9fa;">
+                                <div class="d-flex justify-content-between small mb-2">
+                                    <span><strong>👤 {{ c['username'] }}</strong></span>
+                                    <span class="text-muted">{{ c['created_at'] }}</span>
                                 </div>
-                                <div>
+                                <div class="text-muted">
                                     {% if secure_mode %}
                                         {{ c['content']|e }}
                                     {% else %}
@@ -47,8 +57,52 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    <p class="text-muted mb-0">Chua co phan hoi nao.</p>
+                    <p class="text-muted mb-0">Chưa có yêu cầu nào. Hãy là người đầu tiên liên hệ với chúng tôi!</p>
                 {% endif %}
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm mt-3">
+            <div class="card-body">
+                <h5 class="mb-3">❓ Những câu hỏi thường gặp</h5>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Làm thế nào để thuê lều?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                Bạn có thể xem các gói lều trên trang "Lều trại", điền thông tin liên hệ, và chúng tôi sẽ hỗ trợ bạn đặt hàng.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Lều có được bảo hiểm hư hỏng không?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                Có! Tất cả lều đều được bảo hiểm bảo vệ toàn diện cho khách hàng.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Giao lều ở đâu?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body text-muted small">
+                                Chúng tôi giao tận nơi hoặc bạn có thể nhận tại các điểm nhận hàng của CampHub.
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

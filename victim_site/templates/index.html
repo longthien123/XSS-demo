@@ -1,40 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-<section class="hero-card p-4 p-md-5 rounded-4 shadow-sm mb-4">
+<section class="hero-card p-4 p-md-5 rounded-4 shadow-sm mb-4" style="background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 100%); color: white;">
     <div class="row align-items-center g-4">
         <div class="col-lg-7">
-            <span class="badge text-bg-primary mb-3">Doanh nghiep / Ho tro khach hang</span>
-            <h1 class="display-6 fw-bold mb-3">Giai phap dich vu, san pham va lien he khach hang</h1>
+            <span class="badge text-bg-light mb-3">🏕️ Trải nghiệm thiên nhiên</span>
+            <h1 class="display-5 fw-bold mb-3">Khám phá thiên nhiên với những chiếc lều chất lượng cao</h1>
             <p class="lead mb-4">
-                Day la giao dien mo phong phong cach website doanh nghiep. Nguoi dung co the xem san pham,
-                gui lien he, va trao doi thong tin qua form comment.
+                CampHub - Nền tảng cho thuê lều trại và thiết bị cắm trại toàn quốc. 
+                Tận hưởng kỳ nghỉ gần gũi với thiên nhiên với các gói dịch vụ linh hoạt và giá cạnh tranh.
             </p>
             <div class="d-flex gap-2 flex-wrap">
-                <a href="{{ url_for('products') }}" class="btn btn-primary btn-lg">Xem san pham</a>
-                <a href="{{ url_for('contact') }}" class="btn btn-outline-primary btn-lg">Lien he ngay</a>
+                <a href="{{ url_for('products') }}" class="btn btn-light btn-lg"><i class="bi bi-shop"></i> Xem lều trại</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg"><i class="bi bi-telephone"></i> Liên hệ ngay</a>
                 {% if not g.user.id %}
-                    <a href="{{ url_for('login') }}" class="btn btn-dark btn-lg">Dang nhap</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-warning btn-lg"><i class="bi bi-box-arrow-in-right"></i> Đăng nhập</a>
                 {% endif %}
             </div>
 
             <form method="get" action="{{ url_for('index') }}" class="mt-4">
                 <div class="input-group input-group-lg">
-                    <span class="input-group-text">Search</span>
-                    <input type="text" name="search" class="form-control" placeholder="Nhap noi dung tim kiem" value="{{ search_query }}">
-                    <button class="btn btn-primary" type="submit">Tim</button>
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" name="search" class="form-control" placeholder="Tìm lều trại, địa điểm cắm trại..." value="{{ search_query }}">
+                    <button class="btn btn-light" type="submit">Tìm</button>
                 </div>
             </form>
 
-            {#
             {% if search_query %}
                 <div class="alert alert-light border mt-3 mb-0">
-                    <strong>Ket qua search:</strong> {{ search_query | safe }}
-                </div>
-            {% endif %}
-            #}
-            {% if search_query %}
-                <div class="alert alert-warning border mt-3 mb-0">
-                    <strong>Ket qua search:</strong>
+                    <strong>🔍 Kết quả tìm kiếm:</strong>
                     {% if secure_mode %}
                         {{ search_query|e }}
                     {% else %}
@@ -44,12 +37,21 @@
             {% endif %}
         </div>
         <div class="col-lg-5">
-            <div class="card shadow-sm border-0">
+            <div class="card shadow-lg border-0" style="background: rgba(255,255,255,0.95);">
                 <div class="card-body">
-                    <h5 class="card-title">Thong tin nhanh</h5>
-                    <div class="d-flex justify-content-between border-bottom py-2"><span>Ho tro</span><strong>24/7</strong></div>
-                    <div class="d-flex justify-content-between border-bottom py-2"><span>Phan hoi</span><strong>Trong 24 gio</strong></div>
-                    <div class="d-flex justify-content-between py-2"><span>Khu vuc</span><strong>Toan quoc</strong></div>
+                    <h5 class="card-title fw-bold">📊 Thông tin nhanh</h5>
+                    <div class="d-flex justify-content-between border-bottom py-3">
+                        <span><i class="bi bi-clock"></i> Hỗ trợ</span>
+                        <strong>24/7</strong>
+                    </div>
+                    <div class="d-flex justify-content-between border-bottom py-3">
+                        <span><i class="bi bi-chat-dots"></i> Phản hồi</span>
+                        <strong>Trong 2 giờ</strong>
+                    </div>
+                    <div class="d-flex justify-content-between py-3">
+                        <span><i class="bi bi-geo-alt"></i> Phạm vi</span>
+                        <strong>Toàn quốc</strong>
+                    </div>
                 </div>
             </div>
         </div>
@@ -60,24 +62,24 @@
     <div class="col-md-4">
         <div class="card h-100 border-0 shadow-sm service-card">
             <div class="card-body">
-                <h5>Dich vu tu van</h5>
-                <p class="mb-0 text-muted">Tu van trien khai, van hanh, va ho tro sau ban hang.</p>
+                <h5><i class="bi bi-tent" style="color: #4a7c2c;"></i> Lều trại đa dạng</h5>
+                <p class="mb-0 text-muted">Từ lều cá nhân đến lều gia đình, mọi loại lều phù hợp với nhu cầu của bạn.</p>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card h-100 border-0 shadow-sm service-card">
             <div class="card-body">
-                <h5>San pham noi bat</h5>
-                <p class="mb-0 text-muted">Bo giai phap theo phan he, de mo rong va de bao tri.</p>
+                <h5><i class="bi bi-pin-map" style="color: #4a7c2c;"></i> Địa điểm tuyệt vời</h5>
+                <p class="mb-0 text-muted">Các địa điểm cắm trại đẹp nhất, gần núi, hồ nước, rừng xanh.</p>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card h-100 border-0 shadow-sm service-card">
             <div class="card-body">
-                <h5>Cham soc khach hang</h5>
-                <p class="mb-0 text-muted">Nhan yeu cau tu form lien he va phan hoi tap trung.</p>
+                <h5><i class="bi bi-star" style="color: #4a7c2c;"></i> Dịch vụ tuyệt vời</h5>
+                <p class="mb-0 text-muted">Hỗ trợ đầy đủ, thiết bị chất lượng, giá cạnh tranh nhất thị trường.</p>
             </div>
         </div>
     </div>
@@ -88,18 +90,19 @@
         <div class="card border-0 shadow-sm">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="mb-0">Thong diep moi nhat tu khach hang</h4>
-                    <a href="{{ url_for('contact') }}" class="btn btn-sm btn-outline-primary">Xem lien he</a>
+                    <h4 class="mb-0"><i class="bi bi-chat-left"></i> Bình luận gần đây từ du khách</h4>
+                    <a href="{{ url_for('contact') }}" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
                 </div>
                 {% if recent_comments %}
                     <div class="comment-list">
                         {% for c in recent_comments %}
-                            <div class="comment-item border rounded-3 p-3 mb-2">
+                            <div class="comment-item border rounded-3 p-3 mb-2" style="background: #f8f9fa;">
                                 <div class="d-flex justify-content-between small text-muted mb-2">
-                                    <span>{{ c['username'] }}</span>
+                                    <span><strong>{{ c['username'] }}</strong></span>
                                     <span>{{ c['created_at'] }}</span>
                                 </div>
                                 <div>
+                                    ⭐⭐⭐⭐⭐
                                     {% if secure_mode %}
                                         {{ c['content']|e }}
                                     {% else %}
@@ -110,21 +113,22 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    <p class="text-muted mb-0">Chua co phan hoi nao tu khach hang.</p>
+                    <p class="text-muted mb-0">Chưa có đánh giá nào từ du khách. Hãy là người đầu tiên!</p>
                 {% endif %}
             </div>
         </div>
     </div>
 
     <div class="col-lg-5">
-        <div class="card border-0 shadow-sm">
+        <div class="card border-0 shadow-sm" style="background: linear-gradient(135deg, #fff3cd 0%, #ffe8a8 100%);">
             <div class="card-body">
-                <h4 class="mb-3">Tai khoan / Lien he nhanh</h4>
-                <p class="mb-2"><strong>Admin:</strong> admin / admin123</p>
-                <p class="mb-3 text-muted">Nguoi dung co the dang nhap, vao trang lien he va gui comment.</p>
+                <h4 class="mb-3"><i class="bi bi-fire"></i> Ưu đãi hôm nay</h4>
+                <p class="mb-2"><strong>👤 Tài khoản demo:</strong></p>
+                <p class="small mb-3 text-muted">admin / admin123<br>hoặc đăng ký tài khoản mới ngay</p>
+                <p class="mb-3 text-muted"><strong>🎉 Khuyến mãi:</strong> Giảm 20% cho các đặt phòng từ 3 đêm trở lên!</p>
                 <div class="d-grid gap-2">
-                    <a href="{{ url_for('products') }}" class="btn btn-outline-secondary">San pham</a>
-                    <a href="{{ url_for('contact') }}" class="btn btn-primary">Trang lien he</a>
+                    <a href="{{ url_for('products') }}" class="btn btn-success btn-lg"><i class="bi bi-tent"></i> Xem gói dịch vụ</a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg"><i class="bi bi-telephone"></i> Liên hệ tư vấn</a>
                 </div>
             </div>
         </div>
